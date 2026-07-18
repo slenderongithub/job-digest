@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Daily job-digest LaunchAgent.
+
+  Install (modern launchctl; run from the project root):
+    cp scripts/com.user.jobdigest.plist ~/Library/LaunchAgents/
+    plutil -lint ~/Library/LaunchAgents/com.user.jobdigest.plist
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.user.jobdigest.plist
+
+  Status / test-fire / remove:
+    launchctl print     gui/$(id -u)/com.user.jobdigest
+    launchctl kickstart -k gui/$(id -u)/com.user.jobdigest
+    launchctl bootout   gui/$(id -u)/com.user.jobdigest
+
+  Behavior: fires daily at 09:00. launchd catches up a run missed while the Mac was
+  ASLEEP (coalesced on wake). It does NOT catch up after a full power-OFF/boot — so
+  RunAtLoad=true reruns it at login, and run.py's date-stamp guard ensures at most
+  one digest per day regardless of how many times it fires.
+
+  IMPORTANT: edit the two absolute paths below to match your machine. launchd runs
+  with a minimal environment, so the interpreter path must be absolute (your venv's
+  python), not just "python3".
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.jobdigest</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/slender/Developer/job-digest/.venv/bin/python</string>
+        <string>/Users/slender/Developer/job-digest/run.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/slender/Developer/job-digest</string>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/slender/Developer/job-digest/data/logs/launchd-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/slender/Developer/job-digest/data/logs/launchd-stderr.log</string>
+</dict>
+</plist>

@@ -1,0 +1,158 @@
+# Copy this file to config/profile.yaml and fill in your details.
+# config/profile.yaml is gitignored (it holds your personal criteria).
+
+cgpa: 7.65
+
+# Fields/degrees you count as a match. Used for informational tagging in stage 1
+# and as context for the LLM in stage 2.
+branch_keywords:
+  - computer science
+  - cse
+  - artificial intelligence
+  - machine learning
+  - "ai/ml"
+  - data science
+  - information technology
+  - software engineering
+
+# Anti-relevance title blocklist: if the TITLE contains any of these, the job is
+# dropped outright (non-technical roles that sometimes mention Python/SQL in the body).
+exclude_title_keywords:
+  - accountant
+  - audit
+  - tax
+  - payroll
+  - billing
+  - sales
+  - account executive
+  - account manager
+  - business development
+  - concierge
+  - recruiter
+  - talent acquisition
+  - human resources
+  - legal
+  - counsel
+  - marketing
+  - procurement
+  - receptionist
+  - customer success
+  - customer support
+  - customer service
+  - nurse
+  - teacher
+  - copywriter
+  - content writer
+  - social media
+  - partnerships
+
+# Relevance gate: a job must have one of these (or a branch_keyword) in its title
+# or description, else it's dropped as non-technical (big ATS boards post sales,
+# legal, finance, support roles too). Set require_relevance: false to disable.
+require_relevance: true
+role_keywords:
+  - software engineer
+  - software developer
+  - "sde"
+  - backend
+  - frontend
+  - full stack
+  - data scientist
+  - data analyst
+  - data engineer
+  - machine learning
+  - "ml engineer"
+  - "ai engineer"
+  - developer
+  - programmer
+  - devops
+  - test engineer
+  - web developer
+  - python
+  - graduate engineer
+  - research engineer
+  - "sre"
+
+# A job is INCLUDED if it mentions any of these (or mentions no seniority at all).
+seniority_include:
+  - fresher
+  - entry level
+  - entry-level
+  - graduate
+  - new grad
+  - junior
+  - trainee
+  - associate
+  - "0-1 year"
+  - "0-2 years"
+  - "0 to 2 years"
+  - campus
+
+# A job is REJECTED if it mentions any of these AND no include keyword.
+seniority_exclude:
+  - senior
+  - sr.
+  - staff
+  - principal
+  - lead
+  - manager
+  - "5+ years"
+  - "6+ years"
+  - "7+ years"
+  - "8+ years"
+  - "10+ years"
+  - architect
+
+# A job must mention one of these locations (or say nothing location-specific).
+locations_allow:
+  - india
+  - remote
+  - bangalore
+  - bengaluru
+  - hyderabad
+  - pune
+  - chennai
+  - mumbai
+  - delhi
+  - gurgaon
+  - gurugram
+  - noida
+  - kolkata
+  - ahmedabad
+  - coimbatore
+
+# Which scrapers to run. Remove any you don't want.
+enabled_sources:
+  - greenhouse
+  - lever
+  - naukri
+  - internshala
+  - unstop
+  - linkedin
+
+# Search terms for the keyword-driven boards (naukri/internshala/unstop/linkedin).
+search:
+  keywords:
+    - software engineer fresher
+    - data scientist fresher
+    - machine learning engineer
+    - ai engineer
+    - graduate engineer trainee
+  locations:
+    - India
+    - Remote
+
+# Politeness cap for paginated scrapers.
+max_pages_per_query: 3
+
+# Stage-2 LLM ranking (Google Gemini free tier — via the google-genai SDK).
+# NOTE (verified July 2026): Gemini 1.5 AND 2.5 models now 404 for newly-created API
+# keys ("no longer available to new users"). The floating alias below always resolves
+# to the current cheapest "flash-lite" model, so it won't break when Google retires a
+# pinned version. Working explicit pins as of now: gemini-3.1-flash-lite, gemini-3.5-flash.
+# Verify live free-tier limits at https://aistudio.google.com/rate-limit
+gemini:
+  enabled: true
+  model: gemini-flash-lite-latest
+  max_calls_per_run: 50        # free-tier daily quota for new keys is small (~30-50)
+  delay_seconds: 1.5           # pause between calls to avoid burst rate-limits

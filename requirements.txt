@@ -1,0 +1,14 @@
+requests>=2.31
+beautifulsoup4>=4.12
+lxml>=5.0
+python-dotenv>=1.0
+PyYAML>=6.0
+python-dateutil>=2.9
+tenacity>=8.2
+google-genai>=1.0        # current unified Gemini SDK (replaces google-generativeai)
+pypdf>=4.0               # optional: extract resume text from a PDF
+playwright>=1.44         # LinkedIn (public) + Unstop if JS-rendered; run `playwright install chromium`
+
+# dev / test
+pytest>=8.0
+responses>=0.25          # mock HTTP for scraper unit tests

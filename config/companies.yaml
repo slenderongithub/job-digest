@@ -1,0 +1,47 @@
+# Seed list of company slugs for the ATS scrapers. Verified against the live APIs
+# in July 2026 where possible. Slugs are the last path segment of a company's public
+# board URL (boards.greenhouse.io/{slug} or jobs.lever.co/{slug}).
+#
+# To ADD a company: find its board URL, copy the slug, and validate before committing:
+#   python tests/manual/check_greenhouse.py --company <slug>
+#   python tests/manual/check_lever.py --company <slug>
+# A 404 means the slug is wrong/stale (Lever slugs are CASE-SENSITIVE; Greenhouse
+# slugs are rarely the plain company name — e.g. razorpay is
+# "razorpaysoftwareprivatelimited"). Many big India firms (BrowserStack, Swiggy,
+# Zomato, Meesho, PhonePe, Sprinklr) are on Workday or their own sites — not here.
+
+greenhouse:
+  # India-HQ / strong India engineering presence
+  - razorpaysoftwareprivatelimited
+  - postman
+  - hackerrank
+  - groww
+  - druva
+  - netskope
+  - rubrik
+  # Global companies that hire in India / remote-India
+  - stripe
+  - databricks
+  - cloudflare
+  - gitlab
+  - elastic
+  - coinbase
+  - mongodb
+  - twilio
+  - datadog
+  - airbnb
+  - figma
+  - samsara
+
+lever:
+  # NOTE: case-sensitive slugs — keep exact casing.
+  - mindtickle
+  - hevodata
+  - rapidai
+  - Onehouse
+  - Sprinto
+  - jumpcloud
+  - zeta
+  - cred
+  - drivetrain
+  - stable-money1

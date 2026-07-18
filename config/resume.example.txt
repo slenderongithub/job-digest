@@ -1,0 +1,20 @@
+Final-year B.Tech CSE student, AI/ML specialization. CGPA 7.65.
+
+Skills: Python, PyTorch, TensorFlow, scikit-learn, SQL, Pandas, NumPy, Flask,
+Git, basic AWS/GCP, REST APIs.
+
+Experience: built an image classification CNN (95% val accuracy on a custom
+dataset), an NLP sentiment-analysis pipeline using transformers, and a small
+Flask app serving a recommendation model. Contributed to 2 open-source
+Python repos. Completed a summer internship doing data pipeline work
+(ETL scripts, SQL, basic model deployment).
+
+Looking for: entry-level / fresher roles in software engineering, machine
+learning engineering, data science, or backend development. Open to India
+and remote.
+
+# Copy this file to config/resume.txt and edit with YOUR actual skills.
+# Deliberately keep this to skills/projects/interests only — no name, phone,
+# email, address, college name, or other identifying info. This text is sent
+# to the Gemini API for fit-scoring each job; it doesn't need to identify you
+# to do that job well, and this way nothing personal ever leaves your machine.

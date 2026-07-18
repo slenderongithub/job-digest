@@ -1,0 +1,20 @@
+# Secrets & personal data — NEVER commit
+.env
+config/profile.yaml
+config/resume.txt
+config/resume.pdf
+
+# Runtime state / output
+data/
+digest/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# OS
+.DS_Store
