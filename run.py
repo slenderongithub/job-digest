@@ -126,10 +126,18 @@ def main() -> int:
     # --- stage 2 gemini ranking (survivors only) ---
     stage2_gemini.rank(survivors, profile, cfg.get_gemini_api_key())
 
-    # --- record every scraped job as seen, then persist. New ones so we don't
+    # --- record scraped jobs as seen, then persist. New ones so we don't
     # resurface them tomorrow; repeats so their last_seen stays fresh and a
-    # still-open listing isn't pruned (and later re-surfaced) while it's active. ---
+    # still-open listing isn't pruned (and later re-surfaced) while it's active.
+    # Exception: stage-1 survivors that never got a Gemini score (quota ran out
+    # before reaching them) must NOT be marked seen — otherwise they vanish
+    # forever instead of getting a chance to be scored on a future run. ---
+    unscored_survivor_keys = {
+        j.dedup_key() for j in survivors if j.fit_score is None
+    }
     for j in all_jobs:
+        if j.dedup_key() in unscored_survivor_keys:
+            continue
         store.record(j, today)
     store.save()
 
@@ -141,7 +149,15 @@ def main() -> int:
         "flagged": scam_flagged,
         **{f"src:{k}": v for k, v in per_source.items()},
     }
-    path = write_digest(survivors, stats, cfg.DIGEST_DIR)
+    dated_path = cfg.DIGEST_DIR / f"{today}.html"
+    if not survivors and dated_path.exists() and dated_path.stat().st_size > 0:
+        log.warning(
+            "0 survivors this run but a digest for today already exists — "
+            "leaving it in place instead of overwriting with an empty one"
+        )
+        path = dated_path
+    else:
+        path = write_digest(survivors, stats, cfg.DIGEST_DIR)
     stamp_run()
     log.info("digest written: %s", path)
     print(f"Done. Open {path} in your browser.")

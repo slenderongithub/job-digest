@@ -19,6 +19,9 @@ greenhouse:
   - druva
   - netskope
   - rubrik
+  - phonepe          # verified live 2026-07
+  - observeai        # verified live 2026-07
+  - turing           # remote-first, verified live 2026-07
   # Global companies that hire in India / remote-India
   - stripe
   - databricks
@@ -32,6 +35,14 @@ greenhouse:
   - airbnb
   - figma
   - samsara
+  - zscaler          # large Bangalore office, verified live 2026-07
+  - okta             # verified live 2026-07
+  - asana            # verified live 2026-07
+  - affirm           # verified live 2026-07
+  - pinterest        # verified live 2026-07
+  - reddit           # verified live 2026-07
+  - instacart        # verified live 2026-07
+  - lyft             # verified live 2026-07
 
 lever:
   # NOTE: case-sensitive slugs — keep exact casing.
@@ -45,3 +56,7 @@ lever:
   - cred
   - drivetrain
   - stable-money1
+  - meesho           # verified live 2026-07
+  - porter           # verified live 2026-07
+  - fampay           # verified live 2026-07
+  - fi               # verified live 2026-07
